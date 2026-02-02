@@ -63,7 +63,7 @@ VAR_Y = 1e-5
 conditions = [-0.5, 0.0, 0.5]
 n_gaussian_samples = 5000
 
-savedir = f"/home/tatsuoka.3/test_20D_GMM_example_condition_condY_standardized_dim_u_{dim_u}_VAR_U_{VAR_U}/"
+savedir = f".../"
 make_folder(savedir)
 
 ###generate data
