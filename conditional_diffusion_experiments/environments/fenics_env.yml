@@ -1,0 +1,11 @@
+name: fenics_env
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.11
+  - fenics=2019.1.0
+  - numpy=1.26
+  - scipy=1.14
+  - matplotlib-base=3.9

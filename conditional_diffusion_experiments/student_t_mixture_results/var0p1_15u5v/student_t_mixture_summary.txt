@@ -1,0 +1,247 @@
+{
+  "status": "completed",
+  "description": "Student-t mixture data generation, DM labeling, NN training, and NN/DM evaluation using physical variances converted coordinatewise after standardization.",
+  "loaded_old_artifacts": false,
+  "device": "cuda",
+  "seed": 1234,
+  "dimensions": {
+    "dim_u": 15,
+    "dim_v": 5,
+    "D": 20
+  },
+  "sizes": {
+    "N_sample": 250000,
+    "N_gen": 50000,
+    "N_test": 5000
+  },
+  "diffusion": {
+    "steps": 100,
+    "batch": 150,
+    "batch_role": "computational microbatch only; does not change N_sample/N_gen/N_test",
+    "VAR_U_physical": 0.1,
+    "VAR_V_physical": 0.1,
+    "VAR_Y_physical": 1e-05,
+    "variance_mode": "physical_to_standardized_coordinatewise",
+    "physical_to_standardized_variance_conversion": true,
+    "conversion": {
+      "VAR_Uz_j": "VAR_U_physical/std_U_j^2",
+      "VAR_Vz_j": "VAR_V_physical/std_V_j^2",
+      "VAR_Yz_j": "VAR_Y_physical/std_V_j^2"
+    }
+  },
+  "network": {
+    "width": 128,
+    "depth": 6,
+    "activation": "relu",
+    "epochs": 50000,
+    "batch_size": 4096,
+    "learning_rate": 0.001,
+    "scheduler": "cosine"
+  },
+  "conditions": [
+    -0.25,
+    0.0,
+    0.25
+  ],
+  "condition_seeds": {
+    "-0.25": 1234,
+    "0.0": 11241,
+    "0.25": 21248
+  },
+  "grids": {
+    "projection": {
+      "min": -10.0,
+      "max": 10.0,
+      "n": 500
+    },
+    "marginal": {
+      "min": -8.0,
+      "max": 8.0,
+      "n": 1200
+    }
+  },
+  "KL_direction": "D_KL(p_true || p_model_KDE)",
+  "KL_reporting": {
+    "projection_grid": {
+      "min": -10.0,
+      "max": 10.0,
+      "n": 500
+    },
+    "marginal_grid": {
+      "min": -8.0,
+      "max": 8.0,
+      "n": 1200
+    },
+    "finite_grid_density_normalization": "trapezoidal",
+    "density_clip_floor": 1e-12,
+    "KL_sum": "sum(p*log(p/q))*dx",
+    "KDE": "scipy.stats.gaussian_kde default Scott bandwidth"
+  },
+  "output_dir": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v",
+  "evaluation": {
+    "-0.25": {
+      "condition": -0.25,
+      "seed": 1234,
+      "timing_s": {
+        "NN_generation": 0.0034265518188476562,
+        "DM_generation": 285.8191146850586
+      },
+      "KL": {
+        "NN": {
+          "proj_KL": 0.04045523365994487,
+          "avgKL": 0.007905835000185636
+        },
+        "DM": {
+          "proj_KL": 0.059845496033880556,
+          "avgKL": 0.010448056952440922
+        }
+      },
+      "sample_files": {
+        "U_nn_phys": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/U_nn_phys_cond-0.25_N5000.npy",
+        "zT_nn": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/zT_nn_cond-0.25_N5000.npy",
+        "U_dm_phys": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/U_dm_phys_cond-0.25_N5000.npy",
+        "X_dm_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/X_dm_normalized_cond-0.25_N5000.npy",
+        "zT_dm": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/zT_dm_cond-0.25_N5000.npy"
+      }
+    },
+    "0.0": {
+      "condition": 0.0,
+      "seed": 11241,
+      "timing_s": {
+        "NN_generation": 0.003221750259399414,
+        "DM_generation": 285.7990183830261
+      },
+      "KL": {
+        "NN": {
+          "proj_KL": 0.04565930780278265,
+          "avgKL": 0.007935196889514575
+        },
+        "DM": {
+          "proj_KL": 0.05625276668706433,
+          "avgKL": 0.010967651803318842
+        }
+      },
+      "sample_files": {
+        "U_nn_phys": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/U_nn_phys_cond+0.00_N5000.npy",
+        "zT_nn": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/zT_nn_cond+0.00_N5000.npy",
+        "U_dm_phys": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/U_dm_phys_cond+0.00_N5000.npy",
+        "X_dm_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/X_dm_normalized_cond+0.00_N5000.npy",
+        "zT_dm": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/zT_dm_cond+0.00_N5000.npy"
+      }
+    },
+    "0.25": {
+      "condition": 0.25,
+      "seed": 21248,
+      "timing_s": {
+        "NN_generation": 0.0029473304748535156,
+        "DM_generation": 285.8099434375763
+      },
+      "KL": {
+        "NN": {
+          "proj_KL": 0.041031577119190775,
+          "avgKL": 0.007711208115290327
+        },
+        "DM": {
+          "proj_KL": 0.055943450174218985,
+          "avgKL": 0.008931469359668744
+        }
+      },
+      "sample_files": {
+        "U_nn_phys": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/U_nn_phys_cond+0.25_N5000.npy",
+        "zT_nn": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/zT_nn_cond+0.25_N5000.npy",
+        "U_dm_phys": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/U_dm_phys_cond+0.25_N5000.npy",
+        "X_dm_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/X_dm_normalized_cond+0.25_N5000.npy",
+        "zT_dm": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/zT_dm_cond+0.25_N5000.npy"
+      }
+    }
+  },
+  "data_labeling_timing_s": {
+    "sample_joint_physical": 0.20265483856201172,
+    "standardize_U_V": 0.02592754364013672,
+    "select_training_conditions": 0.05468940734863281,
+    "sample_training_xT": 0.001146554946899414,
+    "reverse_diffusion_training_labels": 2859.2934951782227,
+    "total_data_labeling": 2859.969295024872
+  },
+  "training_data_files": {
+    "mean_U": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/mean_U.npy",
+    "std_U": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/std_U.npy",
+    "mean_V": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/mean_V.npy",
+    "std_V": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/std_V.npy",
+    "sample_U_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/sample_U_normalized.npy",
+    "sample_V_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/sample_V_normalized.npy",
+    "joint_component_labels": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/joint_component_labels.npy",
+    "cond_Y_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/cond_Y_normalized.npy",
+    "xT_amortized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/xT_amortized.npy",
+    "samples_regen_normalized": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/samples_regen_normalized.npy"
+  },
+  "standardized_coordinate_variances_used": {
+    "VAR_Uz": [
+      0.03242691978812218,
+      0.0324065275490284,
+      0.0327477864921093,
+      0.03270747885107994,
+      0.032543595880270004,
+      0.06682519614696503,
+      0.06684084981679916,
+      0.06702534854412079,
+      0.06673143059015274,
+      0.06690974533557892,
+      0.0774836465716362,
+      0.07768359035253525,
+      0.07728412747383118,
+      0.07745938748121262,
+      0.07762613147497177
+    ],
+    "VAR_Vz": [
+      0.07960494607686996,
+      0.07951515167951584,
+      0.0793163999915123,
+      0.0796261876821518,
+      0.07938037067651749
+    ],
+    "VAR_Yz": [
+      7.960494258441031e-06,
+      7.951514817250427e-06,
+      7.931639629532583e-06,
+      7.96261792856967e-06,
+      7.938037015264854e-06
+    ],
+    "VAR_Uz_mean": 0.05898011848330498,
+    "VAR_Vz_mean": 0.0794886127114296,
+    "VAR_Yz_mean": 7.948860911710653e-06
+  },
+  "new_checkpoint": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/FN_MSE_plain_actrelu_depth6_width128_lr0.001_wd0.0_schedcosine_epochs50000_bs4096_2.pth",
+  "checkpoint_record": {
+    "tag": "plain_actrelu_depth6_width128_lr0.001_wd0.0_schedcosine_epochs50000_bs4096_2",
+    "best_train_mse": 0.07657212829589843,
+    "best_epoch": 49993,
+    "epochs": 50000,
+    "batch_size": 4096,
+    "model_hp": {
+      "width": 128,
+      "depth": 6,
+      "act": "relu"
+    },
+    "optim_hp": {
+      "lr": 0.001,
+      "weight_decay": 0.0,
+      "scheduler": "cosine"
+    },
+    "device": "cuda",
+    "note": "Retrained from scratch with seed 1234; physical diffusion variances converted coordinatewise by empirical std**2."
+  },
+  "NN_training_time_s": 898.2281033992767,
+  "KL_summary": {
+    "NN": {
+      "mean_proj_KL": 0.0423820395273061,
+      "mean_avgKL": 0.00785074666833018
+    },
+    "DM": {
+      "mean_proj_KL": 0.05734723763172129,
+      "mean_avgKL": 0.01011572603847617
+    }
+  },
+  "combined_evaluation_samples": "/.../conditional_diffusion_experiments/student_t_mixture_results/var0p1_15u5v/student_t_mixture_samples_all_conditions.npz",
+  "total_wall_time_s": 4627.830249547958
+}

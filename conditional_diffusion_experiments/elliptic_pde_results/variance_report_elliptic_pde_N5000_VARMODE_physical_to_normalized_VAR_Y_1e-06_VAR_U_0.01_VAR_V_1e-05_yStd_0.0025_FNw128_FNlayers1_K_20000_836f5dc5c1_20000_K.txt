@@ -1,0 +1,40 @@
+Variance report
+tag: elliptic_pde_N5000_VARMODE_physical_to_normalized_VAR_Y_1e-06_VAR_U_0.01_VAR_V_1e-05_yStd_0.0025_FNw128_FNlayers1_K_20000
+tag_hash: 836f5dc5c1
+VAR_MODE: physical_to_normalized
+
+Data source:
+  x_path: /.../conditional_diffusion_experiments/elliptic_pde_results/data/b_mn_samples_20000.npy
+  y_path: /.../conditional_diffusion_experiments/elliptic_pde_results/data/sampled_solutions_20000_10_locs.npy
+  note: Base dataset is loaded from disk; not generated from scratch in this script.
+
+Physical-space scalar variance knobs:
+  VAR_U = 0.01
+  VAR_V = 1e-05
+  VAR_Y = 1e-06
+
+Scale diagnostics:
+  mean(std_U^2) = 3.5164913535e-01
+  mean(std_V^2) = 3.8387090171e-05
+  VAR_U / mean(std_U^2) = 2.8437436623e-02
+  VAR_V / mean(std_V^2) = 2.6050424649e-01
+  VAR_Y / mean(std_V^2) = 2.6050424649e-02
+
+std_U_safe:
+[0.70658183 0.5755285  0.57251656 0.49832755]
+
+std_V_safe:
+[0.0076397  0.00866527 0.00819666 0.0080605  0.00509459 0.0036667
+ 0.00423494 0.00501685 0.00501297 0.00326024]
+
+Normalized-space variances actually used:
+VAR_U_gen:
+[0.02002973 0.03019022 0.03050871 0.04026894]
+
+VAR_V_gen:
+[0.17133564 0.13317901 0.1488423  0.15391342 0.38528398 0.74378735
+ 0.55757695 0.3973169  0.39793256 0.94080734]
+
+VAR_Y_gen:
+[0.01713356 0.0133179  0.01488423 0.01539134 0.0385284  0.07437874
+ 0.0557577  0.03973169 0.03979326 0.09408073]

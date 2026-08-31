@@ -1,0 +1,169 @@
+{
+  "testcase": 1,
+  "sigma_y": 0.0025,
+  "var_y": 6.25e-06,
+  "nwalkers": 32,
+  "burnin_steps": 10000,
+  "prod_steps": 25000,
+  "N_POST_target": 5000,
+  "surrogate": {
+    "device": "cuda",
+    "best_val_mse": 8.110066846711561e-05,
+    "train_time_s": 27.156574964523315,
+    "surrogate_dir": "/.../conditional_diffusion_experiments/elliptic_pde_results/elliptic_pde_mcmc/surrogate"
+  },
+  "counts": {
+    "prod_steps_effective": 25000,
+    "nwalkers_effective": 32,
+    "N_total_unthinned": 800000,
+    "thinned_samples_saved": 5000
+  },
+  "diagnostics": {
+    "window_W": 50,
+    "mean_logp_early": 46.11131396497806,
+    "mean_logp_late": 46.373776137629974,
+    "delta_logp_late_minus_early": 0.2624621726519152,
+    "mean_b_early": [
+      0.10496034689303581,
+      0.24239341780094503,
+      0.0306430492110858,
+      -0.03741763595359313
+    ],
+    "mean_b_late": [
+      0.09114880621493235,
+      0.2757847381242284,
+      -0.09328115424207413,
+      -0.07169776621384608
+    ],
+    "delta_mean_b_late_minus_early": [
+      -0.01381154067810346,
+      0.03339132032328335,
+      -0.12392420345315994,
+      -0.03428013026025294
+    ],
+    "rolling_blocks": [
+      {
+        "step_range": [
+          0,
+          5000
+        ],
+        "mean_logp": 46.31299390406406,
+        "mean_b": [
+          0.113865363870284,
+          0.28839292490618296,
+          -0.05466248736994644,
+          -0.06144414537517198
+        ]
+      },
+      {
+        "step_range": [
+          5000,
+          10000
+        ],
+        "mean_logp": 46.29412180227177,
+        "mean_b": [
+          0.11126857680598434,
+          0.2965092285163701,
+          -0.0519607839197398,
+          -0.06530926531747866
+        ]
+      },
+      {
+        "step_range": [
+          10000,
+          15000
+        ],
+        "mean_logp": 46.290165946650305,
+        "mean_b": [
+          0.11293694887682011,
+          0.301007446208126,
+          -0.046956832139303586,
+          -0.05656423333330145
+        ]
+      },
+      {
+        "step_range": [
+          15000,
+          20000
+        ],
+        "mean_logp": 46.309474417212684,
+        "mean_b": [
+          0.11154364194138441,
+          0.28505890377870435,
+          -0.05877355119816125,
+          -0.062502437768365
+        ]
+      },
+      {
+        "step_range": [
+          20000,
+          25000
+        ],
+        "mean_logp": 46.313772148284094,
+        "mean_b": [
+          0.10445007285961662,
+          0.28888966454676823,
+          -0.06267166003466944,
+          -0.08044599438135008
+        ]
+      }
+    ],
+    "split_rhat_per_dim": [
+      1.0035678556340075,
+      1.003181275488061,
+      1.0026059772521019,
+      1.0040975376997023
+    ],
+    "split_rhat_max": 1.0040975376997023
+  },
+  "ess": {
+    "tau_per_dim": [
+      72.82933658702575,
+      77.089020743655,
+      80.18969080474842,
+      89.2287164871455
+    ],
+    "ess_per_dim": [
+      10984.584475022071,
+      10377.612690920658,
+      9976.344739224609,
+      8965.723496821227
+    ],
+    "tau_max": 89.2287164871455,
+    "ess_min": 8965.723496821227,
+    "ess_mean": 10076.066350497142,
+    "thin_ess": 90
+  },
+  "timing_s": {
+    "surrogate_setup_total": 34.23283529281616,
+    "burnin": 91.09873247146606,
+    "production": 227.4364619255066,
+    "postproc": 0.3787069320678711,
+    "save": 0.007464170455932617,
+    "total_case": 318.99356865882874
+  },
+  "acceptance_fraction": {
+    "burnin": {
+      "mean": 0.5029812499999999,
+      "min": 0.4893,
+      "max": 0.5156
+    },
+    "production": {
+      "mean": 0.5026937499999999,
+      "min": 0.495,
+      "max": 0.50992
+    }
+  },
+  "files": {
+    "mcmc_samples": "/.../conditional_diffusion_experiments/elliptic_pde_results/MCMC_samples_testcase1.npy",
+    "summary_json": "mcmc_summary.json",
+    "surrogate_dir": "../surrogate"
+  },
+  "data_used_for_surrogate": {
+    "b_path": "/.../conditional_diffusion_experiments/elliptic_pde_results/data/b_mn_samples_20000.npy",
+    "y_path": "/.../conditional_diffusion_experiments/elliptic_pde_results/data/sampled_solutions_20000_10_locs.npy",
+    "rows_used": 20000,
+    "b_slice": "[:20000,:]",
+    "y_slice": "[:20000,:]"
+  }
+}
