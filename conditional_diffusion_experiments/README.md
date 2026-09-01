@@ -1,4 +1,4 @@
-##Conditional diffusion experiments
+## Conditional diffusion experiments
 
 This directory contains the bimodal C1--C9 experiment, bimodal
 time-discretization experiment, six-run Student-t mixture experiment,
@@ -37,11 +37,11 @@ experiments share `shared_experiment_utils.py`.
         ├── run_elliptic_pde_mcmc.sh
         └── run_elliptic_pde_plots.sh
 
-##Environments
+## Environments
 - GPU: `conda env create --file environments/pytorch_gpu_env.yml`
 - FEniCS: `conda env create --file environments/fenics_env.yml`
 
-##Run
+## Run
 - Everything: `./slurm/submit_all.sh`
 - Bimodal C1--C9: `./slurm/submit_bimodal_c1_c9.sh`
 - Bimodal time experiment: `sbatch slurm/run_bimodal_time_experiment.sh`
@@ -58,7 +58,7 @@ The time experiment saves `time_experiment_results.npz` in `time_results/`.
 Its figures are `fig2_time.pdf` and `fig2_time.png` in
 `time_results/figures/`.
 
-##Student-t mixture outputs
+## Student-t mixture outputs
 The six cases use variances 0.01, 0.1, and 0.5 for dimensions 10/10 and 15/5.
 The figures are:
 - `fig3_20D_i`
@@ -75,7 +75,7 @@ projection KL and average marginal KL results are saved in:
 - `student_t_score_network_results/dim15_5/projection_kl.csv`
 - `student_t_score_network_results/dim15_5/average_marginal_kl.csv`
 
-##Elliptic PDE outputs
+## Elliptic PDE outputs
 The elliptic PDE workflow runs data generation, diffusion, MCMC, and plotting
 in the required order. Results are saved in `elliptic_pde_results/`.
 
