@@ -47,9 +47,8 @@ experiments share `shared_experiment_utils.py`.
 - Bimodal time experiment: `sbatch slurm/run_bimodal_time_experiment.sh`
 - Elliptic PDE: `./slurm/submit_elliptic_pde.sh`
 - Student-t mixture: `./slurm/submit_student_t_mixture.sh`
-- Student-t score-network projection KLs: `./slurm/submit_student_t_score_network_kl.sh`
-- Replot existing C1--C9 results: `./slurm/run_plot_bimodal_c1_c9.sh`
-
+- Student-t score-network comparison: `./slurm/submit_student_t_score_network_kl.sh`
+  
 ## Bimodal outputs
 The C1--C9 experiment saves `C1.npz` through `C9.npz` and
 `summary_table.tex` in `bimodal_c1_c9_results/`. Its figures are
