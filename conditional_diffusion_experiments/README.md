@@ -93,8 +93,7 @@ The PDE figures are:
 
 
 The supplied Slurm scripts use the `batch` and `batch-gpu` partitions and
-request V100 GPUs. Adjust the partition, GPU, memory, and environment paths
-for other computing systems.
+request V100 GPUs. Adjust the partition, GPU, memory, and environment paths.
 
 
 
