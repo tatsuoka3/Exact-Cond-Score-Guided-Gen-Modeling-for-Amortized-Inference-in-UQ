@@ -144,9 +144,18 @@ tag = (
 )
 tag_hash = stable_short_hash(tag)
 
-timing_csv = os.path.join(savedir, f"TIMING_singlearch_{tag}_{tag_hash}_{K}_K.csv")
-variance_json = os.path.join(savedir, f"variance_report_{tag}_{tag_hash}_{K}_K.json")
-variance_txt = os.path.join(savedir, f"variance_report_{tag}_{tag_hash}_{K}_K.txt")
+# Keep the variance mode and stable hash in saved metadata, but omit both from
+# filenames so the packaged results remain usable on systems with short path
+# limits. The remaining parameters still describe the generated artifact.
+filename_tag = (
+    f"elliptic_pde_N{N_COND_TRAIN}_VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
+    f"yStd_{y_std if ADD_NOISE_TO_TRAIN_V else 0.0}_"
+    f"FNw{n_neurons}_FNlayers{n_layers}_K_{K}"
+)
+
+timing_csv = os.path.join(savedir, f"TIMING_singlearch_{filename_tag}_{K}_K.csv")
+variance_json = os.path.join(savedir, f"variance_report_{filename_tag}_{K}_K.json")
+variance_txt = os.path.join(savedir, f"variance_report_{filename_tag}_{K}_K.txt")
 
 print(f"[run] DEVICE={DEVICE}")
 print(f"[run] tag={tag}")
@@ -292,15 +301,15 @@ cond_Y_train_phys = sample_V[cond_idx_t]
 cond_Y_train_norm = (cond_Y_train_phys - mean_V) / std_V_safe
 
 np.save(
-    os.path.join(savedir, f"cond_Y_train_phys_{N_COND_TRAIN}_{tag_hash}.npy"),
+    os.path.join(savedir, f"cond_Y_train_phys_{N_COND_TRAIN}.npy"),
     cond_Y_train_phys.detach().cpu().numpy(),
 )
 np.save(
-    os.path.join(savedir, f"cond_Y_train_norm_{N_COND_TRAIN}_{tag_hash}.npy"),
+    os.path.join(savedir, f"cond_Y_train_norm_{N_COND_TRAIN}.npy"),
     cond_Y_train_norm.detach().cpu().numpy(),
 )
 np.save(
-    os.path.join(savedir, f"cond_idx_train_{N_COND_TRAIN}_{tag_hash}.npy"),
+    os.path.join(savedir, f"cond_idx_train_{N_COND_TRAIN}.npy"),
     cond_idx,
 )
 
@@ -438,7 +447,7 @@ gen_sample_size = N_COND_TRAIN
 num_batches = int(np.ceil(gen_sample_size / DM_BATCH))
 
 xT = torch.randn(gen_sample_size, dim_x, device=DEVICE)
-torch.save(xT, os.path.join(savedir, f"xT_dm_train_{gen_sample_size}_{tag_hash}.pt"))
+torch.save(xT, os.path.join(savedir, f"xT_dm_train_{gen_sample_size}.pt"))
 
 samples_regen_list = []
 
@@ -482,8 +491,8 @@ samples_regen_phys[:, dim_u:dim_u + dim_v] = (samples_regen_phys[:, dim_u:dim_u 
 
 dm_out_path = os.path.join(
     savedir,
-    f"samples_regen_dmtrain_{gen_sample_size}_VARMODE_{VAR_MODE}_VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
-    f"yStd_{y_std if ADD_NOISE_TO_TRAIN_V else 0.0}_{tag_hash}_K_{K}.npy",
+    f"samples_regen_dmtrain_{gen_sample_size}_VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
+    f"yStd_{y_std if ADD_NOISE_TO_TRAIN_V else 0.0}_K_{K}.npy",
 )
 np.save(dm_out_path, samples_regen_phys.detach().cpu().numpy())
 
@@ -528,8 +537,8 @@ best_loss = float("inf")
 best_state_dict = None
 best_epoch = -1
 
-model_save_path = os.path.join(savedir, f"FN_trained_model_{tag}_{tag_hash}_K_{K}.pth")
-stats_save_path = os.path.join(savedir, f"FN_trained_model_{tag}_{tag_hash}_stats_K_{K}.pth")
+model_save_path = os.path.join(savedir, f"FN_trained_model_{filename_tag}_K_{K}.pth")
+stats_save_path = os.path.join(savedir, f"FN_trained_model_{filename_tag}_stats_K_{K}.pth")
 
 print("\n[FN] Training...")
 cuda_sync()
@@ -606,7 +615,7 @@ plt.xlabel("Epoch")
 plt.ylabel("MSE loss")
 plt.title("Elliptic PDE FN training loss")
 plt.tight_layout()
-loss_png = os.path.join(savedir, f"FN_training_loss_{tag}_{tag_hash}_K_{K}.png")
+loss_png = os.path.join(savedir, f"FN_training_loss_{filename_tag}_K_{K}.png")
 plt.savefig(loss_png, dpi=200)
 plt.close()
 t_lossplot = time.time() - t0
@@ -687,7 +696,7 @@ for tc in TESTCASES_TO_TEST:
     samples_tc = nn_sample_for_testcase(tc, N_NN_SAMPLES, rng_inf)
     nn_out_path = os.path.join(
         savedir,
-        f"NN_output_testcase_{tc}_VARMODE_{VAR_MODE}_VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
+        f"NN_output_testcase_{tc}_VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
         f"Ntrain_{N_COND_TRAIN}_yStd_{y_std if ADD_NOISE_TO_TRAIN_V else 0.0}_"
         f"FNw{n_neurons}_FNlayers{n_layers}_K_{K}.npy",
     )
@@ -764,7 +773,7 @@ def dm_generate_conditioned_on_testcase(test_case: int,
     out_path = os.path.join(
         savedir,
         f"DM_pure_samples_testcase_{test_case}_Nsamp_{gen_sample_size}_"
-        f"VARMODE_{VAR_MODE}_VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
+        f"VAR_Y_{VAR_Y}_VAR_U_{VAR_U}_VAR_V_{VAR_V}_"
         f"yStdTrain_{y_std if ADD_NOISE_TO_TRAIN_V else 0.0}_"
         f"T_{time_steps}_B_{batch_size}_K_{K}.npy",
     )
