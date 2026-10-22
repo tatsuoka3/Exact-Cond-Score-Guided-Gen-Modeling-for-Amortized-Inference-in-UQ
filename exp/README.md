@@ -5,7 +5,7 @@ time-discretization experiment, six-run Student-t mixture experiment,
 Student-t score-network comparison, and elliptic PDE example. The diffusion
 experiments share `shared_experiment_utils.py`.
 
-    conditional_diffusion_experiments/
+    exp/
     ├── shared_experiment_utils.py
     ├── bimodal_experiment.py
     ├── compute_bimodal_c1_c9.py
@@ -46,8 +46,7 @@ experiments share `shared_experiment_utils.py`.
 
 This repository includes precomputed models and results.
 
-To complete a run from scratch, run the following commands from
-`conditional_diffusion_experiments/`:
+To complete a run from scratch, run the following commands from `exp/`:
 
 ```bash
 mv bimodal_c1_c9_results bimodal_c1_c9_results_supplied
