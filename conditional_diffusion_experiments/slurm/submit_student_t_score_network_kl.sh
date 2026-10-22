@@ -25,7 +25,7 @@ for dim_u in 10 15; do
             --nodes=1 \
             --ntasks=1 \
             --cpus-per-task=1 \
-            --gres=gpu:v100:1 \
+            --gres=gpu:1 \
             --mem=8G \
             --time=02:00:00 \
             --chdir="$run_dir" \
