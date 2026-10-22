@@ -20,5 +20,8 @@ echo "submitted bimodal time job $time_job_id"
 # Submit the six Student-t mixture tasks and dependent plotting job.
 bash "$slurm_dir/submit_student_t_mixture.sh"
 
-# Submit elliptic PDE data generation followed by diffusion and MCMC.
+# Submit the 10/10 and 15/5 Student-t score-network comparison jobs.
+bash "$slurm_dir/submit_student_t_score_network_kl.sh"
+
+# Submit elliptic PDE data generation followed by diffusion, MCMC, and plots.
 bash "$slurm_dir/submit_elliptic_pde.sh"
